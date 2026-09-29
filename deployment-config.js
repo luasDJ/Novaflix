@@ -1,0 +1,1 @@
+window.NOVAFLIX_STATIC_MODE = false;

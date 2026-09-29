@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101113">
+    <meta name="description" content="Descubre historias que merecen una noche más. Novaflix, tu cine en casa.">
+    <title>Novaflix — Historias para quedarse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="deployment-config.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#inicio" aria-label="Novaflix, inicio">nova<span>flix</span><i></i></a>
+      <nav class="main-nav" aria-label="Navegación principal">
+        <a class="nav-link is-active" href="#inicio">Inicio</a>
+        <a class="nav-link" href="#catalogo" data-filter="Series">Series</a>
+        <a class="nav-link" href="#catalogo" data-filter="Películas">Películas</a>
+        <a class="nav-link" href="#catalogo" data-filter="Mi lista">Mi lista</a>
+      </nav>
+      <div class="header-actions">
+        <label class="search-box" for="search-input">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m16 16 4 4"></path></svg>
+          <input id="search-input" type="search" placeholder="Títulos, géneros" autocomplete="off">
+        </label>
+        <button class="avatar" id="account-button" aria-label="Abrir cuenta">Entrar</button>
+      </div>
+    </header>
+
+    <main id="inicio">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-art"></div>
+        <div class="hero-shade"></div>
+        <div class="hero-content">
+          <p class="eyebrow"><span class="eyebrow-mark">N</span> UNA HISTORIA ORIGINAL</p>
+          <h1 id="hero-title">La última<br>luz <em>del norte</em></h1>
+          <div class="hero-meta"><span class="match">98% para ti</span><span>2025</span><span class="rating">16+</span><span>1 temporada</span></div>
+          <p class="hero-copy">Cuando una señal imposible despierta bajo el hielo, una cartógrafa vuelve al pueblo que juró olvidar. Hay lugares que nunca dejan de llamarte.</p>
+          <div class="hero-buttons">
+            <button class="button button-light" data-play="la-ultima-luz"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7z"></path></svg>Reproducir</button>
+            <button class="button button-glass" data-details="la-ultima-luz"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5m0-8h.01"></path></svg>Más información</button>
+          </div>
+          <div class="hero-credit"><span>01</span><span class="credit-line"></span><span>Historias que se quedan</span></div>
+        </div>
+        <div class="hero-side-note">NUEVO · ESTRENO ESTA SEMANA</div>
+        <button class="sound-toggle" aria-label="Activar sonido"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7m3-10a9 9 0 0 1 0 13"></path></svg></button>
+        <div class="age-badge">16+</div>
+      </section>
+
+      <section class="catalog" id="catalogo" aria-label="Catálogo">
+        <div class="catalog-heading">
+          <div><p class="section-kicker">SELECCIÓN NOVA</p><h2 id="shelf-title">Tu próxima historia</h2></div>
+          <div class="shelf-controls"><span id="result-count"></span><button class="shelf-arrow" data-scroll="-1" aria-label="Desplazar hacia la izquierda"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"></path></svg></button><button class="shelf-arrow" data-scroll="1" aria-label="Desplazar hacia la derecha"><svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"></path></svg></button></div>
+        </div>
+        <div class="filter-row" role="group" aria-label="Filtrar catálogo">
+          <button class="filter-chip is-selected" data-category="Todo">Todo</button>
+          <button class="filter-chip" data-category="Series">Series</button>
+          <button class="filter-chip" data-category="Películas">Películas</button>
+          <button class="filter-chip" data-category="Drama">Drama</button>
+          <button class="filter-chip" data-category="Ciencia ficción">Ciencia ficción</button>
+          <button class="filter-chip" data-category="Mi lista">Mi lista <span class="list-count">0</span></button>
+        </div>
+        <div class="movie-grid" id="movie-grid" aria-live="polite"></div>
+        <p class="empty-state" id="empty-state" hidden>No encontramos historias con esos filtros. Prueba otra búsqueda.</p>
+      </section>
+    </main>
+
+    <footer class="footer"><a class="brand brand-small" href="#inicio">nova<span>flix</span><i></i></a><p>Una buena historia cambia la noche.</p><span>© 2025 Novaflix</span></footer>
+
+    <dialog class="detail-dialog" id="detail-dialog" aria-labelledby="dialog-title">
+      <button class="dialog-close" aria-label="Cerrar"><svg viewBox="0 0 24 24"><path d="m18 6-12 12M6 6l12 12"></path></svg></button>
+      <div class="dialog-art" id="dialog-art"><div class="dialog-art-shade"></div><div class="dialog-art-copy"><span class="dialog-kicker">NOVA ORIGINAL</span><h2 id="dialog-title"></h2><button class="button button-light dialog-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7z"></path></svg>Reproducir</button></div></div>
+      <div class="dialog-info"><div class="dialog-meta"></div><p class="dialog-description"></p><div class="dialog-tags"></div><button class="list-button"><span>+</span> Mi lista</button></div>
+    </dialog>
+
+    <dialog class="player-dialog" id="player-dialog" aria-labelledby="player-title">
+      <div class="player-topbar"><div><span class="player-mark">N</span><h2 id="player-title">Reproduciendo</h2></div><button class="dialog-close player-close" aria-label="Cerrar reproductor"><svg viewBox="0 0 24 24"><path d="m18 6-12 12M6 6l12 12"></path></svg></button></div>
+      <video id="movie-player" controls playsinline preload="metadata" poster="https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=1200&q=80">
+        <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4">
+        Tu navegador no puede reproducir este vídeo.
+      </video>
+      <p class="player-note">Vídeo de demostración. Añade tus propios vídeos con licencia para publicar películas completas.</p>
+    </dialog>
+
+    <dialog class="account-dialog" id="account-dialog" aria-labelledby="account-title">
+      <button class="dialog-close account-close" aria-label="Cerrar"><svg viewBox="0 0 24 24"><path d="m18 6-12 12M6 6l12 12"></path></svg></button>
+      <div class="account-panel">
+        <span class="account-mark">N</span>
+        <h2 id="account-title">Tu espacio Nova</h2>
+        <p class="account-intro">Entra para tener tus historias en un mismo lugar.</p>
+        <form id="account-form">
+          <div class="auth-tabs"><button type="button" class="auth-tab is-active" data-auth-mode="login">Iniciar sesión</button><button type="button" class="auth-tab" data-auth-mode="register">Crear cuenta</button></div>
+          <label class="auth-field name-field" hidden>Nombre<input name="name" autocomplete="name" maxlength="40"></label>
+          <label class="auth-field">Correo electrónico<input name="email" type="email" autocomplete="email" required maxlength="254"></label>
+          <label class="auth-field">Contraseña<input name="password" type="password" autocomplete="current-password" required minlength="8" maxlength="128"></label>
+          <p class="auth-error" id="auth-error" role="alert" hidden></p>
+          <button class="button button-light auth-submit" type="submit">Iniciar sesión</button>
+        </form>
+        <div class="account-profile" id="account-profile" hidden>
+          <p>Sesión iniciada como</p><strong id="account-name"></strong><span id="account-email"></span><span class="account-role" id="account-role"></span>
+          <button class="button button-glass admin-open" id="admin-open" hidden>Gestionar películas</button>
+          <button class="button button-glass logout-button" id="logout-button">Cerrar sesión</button>
+        </div>
+        <p class="pages-account-note" id="pages-account-note" hidden>GitHub Pages solo publica archivos estáticos: las cuentas y el panel admin no están disponibles. Para añadir títulos a esta demo, edita data/movies.json y publica el cambio.</p>
+        <p class="account-footnote">Cuenta local de demostración para este proyecto.</p>
+      </div>
+    </dialog>
+
+    <dialog class="admin-dialog" id="admin-dialog" aria-labelledby="admin-title">
+      <button class="dialog-close admin-close" aria-label="Cerrar panel"><svg viewBox="0 0 24 24"><path d="m18 6-12 12M6 6l12 12"></path></svg></button>
+      <div class="admin-panel">
+        <p class="section-kicker">GESTIÓN DEL CATÁLOGO</p>
+        <h2 id="admin-title">Añadir título</h2>
+        <p class="admin-intro">Añade películas o series. Usa URLs HTTPS de carteles y vídeos que tengas permiso para publicar.</p>
+        <form id="movie-form" class="movie-form">
+          <label class="auth-field">Título *<input name="name" required maxlength="100"></label>
+          <label class="auth-field">Tipo *<select name="kind" required><option value="Películas">Película</option><option value="Series">Serie</option></select></label>
+          <div class="admin-form-row">
+            <label class="auth-field">Género *<input name="genre" required maxlength="80" placeholder="Drama · Aventura"></label>
+            <label class="auth-field">Año *<input name="year" type="number" required min="1888" max="2031" value="2025"></label>
+          </div>
+          <div class="admin-form-row">
+            <label class="auth-field">Valoración *<input name="score" type="number" required min="0" max="100" value="90"></label>
+            <label class="auth-field">Clasificación *<select name="age" required><option>7+</option><option>13+</option><option selected>16+</option><option>18+</option></select></label>
+            <label class="auth-field">Duración / temporadas *<input name="length" required maxlength="50" placeholder="1 h 45 min o 2 temporadas"></label>
+          </div>
+          <label class="auth-field">URL HTTPS del cartel *<input name="imageUrl" type="url" required placeholder="https://..."></label>
+          <label class="auth-field">URL HTTPS del vídeo<input name="videoUrl" type="url" placeholder="https://... (opcional)"></label>
+          <label class="auth-field">Sinopsis *<textarea name="description" required maxlength="1000" rows="4"></textarea></label>
+          <p class="admin-error" id="admin-error" role="alert" hidden></p>
+          <button class="button button-light admin-submit" type="submit">Añadir al catálogo</button>
+        </form>
+      </div>
+    </dialog>
+  </body>
+</html>

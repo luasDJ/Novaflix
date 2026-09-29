@@ -33,20 +33,20 @@
 
     <main id="inicio">
       <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-art"></div>
+        <div class="hero-art" id="hero-art"></div>
         <div class="hero-shade"></div>
         <div class="hero-content">
-          <p class="eyebrow"><span class="eyebrow-mark">N</span> UNA HISTORIA ORIGINAL</p>
-          <h1 id="hero-title">La última<br>luz <em>del norte</em></h1>
-          <div class="hero-meta"><span class="match">98% para ti</span><span>2025</span><span class="rating">16+</span><span>1 temporada</span></div>
-          <p class="hero-copy">Cuando una señal imposible despierta bajo el hielo, una cartógrafa vuelve al pueblo que juró olvidar. Hay lugares que nunca dejan de llamarte.</p>
+          <p class="eyebrow"><span class="eyebrow-mark">N</span> SELECCIÓN NOVA</p>
+          <h1 id="hero-title"></h1>
+          <div class="hero-meta"><span class="match" id="hero-score"></span><span id="hero-year"></span><span class="rating" id="hero-rating"></span><span id="hero-length"></span></div>
+          <p class="hero-copy" id="hero-copy"></p>
           <div class="hero-buttons">
-            <button class="button button-light" data-play="la-ultima-luz"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7z"></path></svg>Reproducir</button>
-            <button class="button button-glass" data-details="la-ultima-luz"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5m0-8h.01"></path></svg>Más información</button>
+            <button class="button button-light" id="hero-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7z"></path></svg>Reproducir</button>
+            <button class="button button-glass" id="hero-details"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5m0-8h.01"></path></svg>Más información</button>
           </div>
           <div class="hero-credit"><span>01</span><span class="credit-line"></span><span>Historias que se quedan</span></div>
         </div>
-        <div class="hero-side-note">NUEVO · ESTRENO ESTA SEMANA</div>
+        <div class="hero-side-note">CATÁLOGO NOVA</div>
         <button class="sound-toggle" aria-label="Activar sonido"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7m3-10a9 9 0 0 1 0 13"></path></svg></button>
         <div class="age-badge">16+</div>
       </section>
@@ -79,11 +79,8 @@
 
     <dialog class="player-dialog" id="player-dialog" aria-labelledby="player-title">
       <div class="player-topbar"><div><span class="player-mark">N</span><h2 id="player-title">Reproduciendo</h2></div><button class="dialog-close player-close" aria-label="Cerrar reproductor"><svg viewBox="0 0 24 24"><path d="m18 6-12 12M6 6l12 12"></path></svg></button></div>
-      <video id="movie-player" controls playsinline preload="metadata" poster="https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=1200&q=80">
-        <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4">
-        Tu navegador no puede reproducir este vídeo.
-      </video>
-      <p class="player-note">Vídeo de demostración. Añade tus propios vídeos con licencia para publicar películas completas.</p>
+      <video id="movie-player" controls playsinline preload="metadata" hidden></video>
+      <div class="player-placeholder" id="player-placeholder" hidden><p></p></div>
     </dialog>
 
     <dialog class="account-dialog" id="account-dialog" aria-labelledby="account-title">
@@ -105,8 +102,7 @@
           <button class="button button-glass admin-open" id="admin-open" hidden>Gestionar películas</button>
           <button class="button button-glass logout-button" id="logout-button">Cerrar sesión</button>
         </div>
-        <p class="pages-account-note" id="pages-account-note" hidden>GitHub Pages solo publica archivos estáticos: las cuentas y el panel admin no están disponibles. Para añadir títulos a esta demo, edita data/movies.json y publica el cambio.</p>
-        <p class="account-footnote">Cuenta local de demostración para este proyecto.</p>
+        <p class="pages-account-note" id="pages-account-note" hidden>GitHub Pages no administra cuentas. Para activar el inicio de sesión hay que conectar un servicio de autenticación.</p>
       </div>
     </dialog>
 

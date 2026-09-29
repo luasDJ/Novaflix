@@ -1,26 +1,7 @@
 const image = (id, width = 720) => id.startsWith('https://') ? id : `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}&q=82`;
 const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]);
-const demoVideo = 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4';
 const isGitHubPages = window.NOVAFLIX_STATIC_MODE === true;
-
-const titles = [
-  { id: 'la-ultima-luz', name: 'La última luz del norte', genre: 'Drama · Misterio', kind: 'Series', year: '2025', score: '98%', age: '16+', length: '1 temporada', label: 'NOVA ORIGINAL', image: 'photo-1511497584788-876760111969', description: 'Cuando una señal imposible despierta bajo el hielo, una cartógrafa vuelve al pueblo que juró olvidar. Hay lugares que nunca dejan de llamarte.' },
-  { id: 'mar-abierto', name: 'Mar abierto', genre: 'Drama · Aventura', kind: 'Películas', year: '2024', score: '95%', age: '13+', length: '1 h 48 min', label: 'TOP 10', image: 'photo-1518837695005-2083093ee35b', description: 'Dos hermanas emprenden el viaje que su madre dejó inconcluso y descubren que el horizonte guarda más que respuestas.' },
-  { id: 'frecuencia-cero', name: 'Frecuencia cero', genre: 'Ciencia ficción · Misterio', kind: 'Series', year: '2025', score: '97%', age: '16+', length: '2 temporadas', label: 'NUEVA TEMPORADA', image: 'photo-1519608487953-e999c86e7455', description: 'Cada noche, a las 02:17, una voz transmite desde un futuro que todavía no existe.' },
-  { id: 'casa-sal', name: 'La casa de sal', genre: 'Drama · Suspense', kind: 'Películas', year: '2024', score: '92%', age: '16+', length: '1 h 56 min', label: '', image: 'photo-1518005020951-eccb494ad742', description: 'Una arquitecta hereda una casa imposible y las cartas de una familia que nadie recuerda.' },
-  { id: 'verde-profundo', name: 'Verde profundo', genre: 'Naturaleza · Documental', kind: 'Series', year: '2025', score: '99%', age: '7+', length: '1 temporada', label: 'NOVA ORIGINAL', image: 'photo-1448375240586-882707db888b', description: 'Un viaje íntimo por los bosques más antiguos y los seres que aprendieron a vivir en ellos.' },
-  { id: 'ciudad-dormida', name: 'La ciudad dormida', genre: 'Ciencia ficción · Drama', kind: 'Películas', year: '2023', score: '91%', age: '13+', length: '2 h 04 min', label: '', image: 'photo-1519608487953-e999c86e7455', description: 'En una ciudad donde nadie sueña, una estudiante empieza a recordar vidas que no son suyas.' },
-  { id: 'ultimo-verano', name: 'El último verano', genre: 'Drama · Romance', kind: 'Series', year: '2024', score: '96%', age: '13+', length: '1 temporada', label: 'TENDENCIA', image: 'photo-1473116763249-2faaef81ccda', description: 'Un pequeño hotel junto al lago reúne a desconocidos en el verano que ninguno olvidará.' },
-  { id: 'orbita', name: 'Órbita 9', genre: 'Ciencia ficción · Aventura', kind: 'Películas', year: '2025', score: '94%', age: '13+', length: '1 h 52 min', label: 'ESTRENO', image: 'photo-1446776811953-b23d57bd21aa', description: 'Una misión de rescate descubre que la nave perdida sigue enviando señales desde algún lugar.' },
-  { id: 'hijas-viento', name: 'Hijas del viento', genre: 'Drama · Historia', kind: 'Series', year: '2023', score: '93%', age: '16+', length: '2 temporadas', label: '', image: 'photo-1470252649378-9c29740c9fa8', description: 'Tres generaciones, una isla y un secreto que cambia de nombre con cada marea.' },
-  { id: 'linea-fantasma', name: 'Línea fantasma', genre: 'Suspense · Misterio', kind: 'Películas', year: '2025', score: '90%', age: '16+', length: '1 h 39 min', label: 'NOVA ORIGINAL', image: 'photo-1519608487953-e999c86e7455', description: 'Una operadora nocturna recibe llamadas de pasajeros de un tren que dejó de existir hace veinte años.' },
-  { id: 'ultima-parada', name: 'La última parada', genre: 'Drama · Aventura', kind: 'Películas', year: '2025', score: '96%', age: '13+', length: '1 h 51 min', label: 'ESTRENO', image: 'photo-1473448912268-2022ce9509d8', description: 'Un tren detenido en mitad del bosque cambia el rumbo de seis desconocidos.' },
-  { id: 'atlas-azul', name: 'El atlas azul', genre: 'Aventura · Misterio', kind: 'Películas', year: '2024', score: '94%', age: '7+', length: '1 h 43 min', label: '', image: 'photo-1500530855697-b586d89ba3ee', description: 'Una joven encuentra un mapa que señala lugares que todavía no existen.' },
-  { id: 'despues-lluvia', name: 'Después de la lluvia', genre: 'Drama · Romance', kind: 'Películas', year: '2025', score: '97%', age: '13+', length: '1 h 57 min', label: 'NOVA ORIGINAL', image: 'photo-1519608487953-e999c86e7455', description: 'Dos viejos amigos vuelven a su ciudad costera para empezar de nuevo.' },
-  { id: 'planeta-silencio', name: 'Planeta silencio', genre: 'Ciencia ficción · Aventura', kind: 'Películas', year: '2024', score: '95%', age: '13+', length: '2 h 02 min', label: 'TOP 10', image: 'photo-1462331940025-496dfbfc7564', description: 'La tripulación de una nave explora un planeta donde el sonido desaparece.' },
-  { id: 'jardin-secreto', name: 'El jardín secreto', genre: 'Drama · Misterio', kind: 'Películas', year: '2023', score: '92%', age: '7+', length: '1 h 46 min', label: '', image: 'photo-1441974231531-c6227db76b6e', description: 'Una restauradora descubre un jardín oculto y las historias que guarda.' },
-  { id: 'noche-de-cristal', name: 'Noche de cristal', genre: 'Suspense · Drama', kind: 'Películas', year: '2025', score: '91%', age: '16+', length: '1 h 42 min', label: 'NUEVA', image: 'photo-1519608487953-e999c86e7455', description: 'Una fotógrafa revela por accidente una imagen que alguien quería mantener oculta.' },
-];
+const titles = [];
 
 const grid = document.querySelector('#movie-grid');
 const input = document.querySelector('#search-input');
@@ -77,9 +58,27 @@ function renderCatalog() {
       </div>
     </article>`).join('');
   emptyState.hidden = filtered.length > 0;
+  emptyState.textContent = titles.length ? 'No encontramos historias con esos filtros. Prueba otra búsqueda.' : 'Todavía no hay títulos en el catálogo.';
   grid.hidden = filtered.length === 0;
   document.querySelector('#result-count').textContent = `${filtered.length} títulos`;
   document.querySelectorAll('.list-count').forEach((count) => { count.textContent = saved.size; });
+  renderFeaturedTitle();
+}
+
+function renderFeaturedTitle() {
+  const title = titles[0];
+  const hero = document.querySelector('.hero');
+  hero.hidden = !title;
+  if (!title) return;
+  document.querySelector('#hero-title').textContent = title.name;
+  document.querySelector('#hero-score').textContent = `${title.score} para ti`;
+  document.querySelector('#hero-year').textContent = title.year;
+  document.querySelector('#hero-rating').textContent = title.age;
+  document.querySelector('#hero-length').textContent = title.length;
+  document.querySelector('#hero-copy').textContent = title.description;
+  document.querySelector('#hero-art').style.backgroundImage = `url('${image(title.image, 1800)}')`;
+  document.querySelector('#hero-play').dataset.title = title.id;
+  document.querySelector('#hero-details').dataset.title = title.id;
 }
 
 async function toggleSaved(id) {
@@ -125,12 +124,25 @@ function playTitle(id) {
   const title = titles.find((item) => item.id === id);
   if (!title) return;
   document.querySelector('#player-title').textContent = title.name;
-  videoPlayer.src = title.videoUrl || demoVideo;
-  videoPlayer.poster = image(title.image, 1200);
-  videoPlayer.load();
-  videoPlayer.currentTime = 0;
+  const placeholder = document.querySelector('#player-placeholder');
+  videoPlayer.pause();
+  if (title.videoUrl) {
+    videoPlayer.src = title.videoUrl;
+    videoPlayer.poster = image(title.image, 1200);
+    videoPlayer.hidden = false;
+    placeholder.hidden = true;
+    videoPlayer.load();
+    videoPlayer.currentTime = 0;
+  } else {
+    videoPlayer.removeAttribute('src');
+    videoPlayer.removeAttribute('poster');
+    videoPlayer.hidden = true;
+    placeholder.hidden = false;
+    videoPlayer.load();
+    placeholder.querySelector('p').textContent = 'Este título todavía no tiene un vídeo disponible.';
+  }
   playerDialog.showModal();
-  videoPlayer.play().catch(() => {});
+  if (title.videoUrl) videoPlayer.play().catch(() => {});
 }
 
 function showAuthError(message = '') {
@@ -145,7 +157,6 @@ function renderAccount() {
   document.querySelector('#account-profile').hidden = !isLoggedIn || isGitHubPages;
   document.querySelector('#pages-account-note').hidden = !isGitHubPages;
   document.querySelector('.account-intro').hidden = isGitHubPages;
-  document.querySelector('.account-footnote').hidden = isGitHubPages;
   document.querySelector('#account-name').textContent = currentUser?.name || '';
   document.querySelector('#account-email').textContent = currentUser?.email || '';
   document.querySelector('#account-role').textContent = currentUser?.role === 'admin' ? 'Administrador' : 'Cuenta estándar';
@@ -233,8 +244,8 @@ grid.addEventListener('click', (event) => {
   if (card) openDetails(card.dataset.title);
 });
 
-document.querySelector('[data-details="la-ultima-luz"]').addEventListener('click', () => openDetails('la-ultima-luz'));
-document.querySelector('[data-play="la-ultima-luz"]').addEventListener('click', () => playTitle('la-ultima-luz'));
+document.querySelector('#hero-details').addEventListener('click', (event) => openDetails(event.currentTarget.dataset.title));
+document.querySelector('#hero-play').addEventListener('click', (event) => playTitle(event.currentTarget.dataset.title));
 document.querySelector('.dialog-close').addEventListener('click', () => dialog.close());
 dialog.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); });
 dialog.querySelector('.list-button').addEventListener('click', () => toggleSaved(dialog.dataset.title));

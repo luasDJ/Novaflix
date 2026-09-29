@@ -77,6 +77,7 @@ async function handleApi(request, response, pathname) {
     const imageUrl = typeof body.imageUrl === 'string' ? body.imageUrl.trim() : '';
     const videoUrl = typeof body.videoUrl === 'string' ? body.videoUrl.trim() : '';
     const kind = body.kind;
+    const featured = body.featured === true;
     const year = Number(body.year);
     const score = Number(body.score);
     const age = body.age;
@@ -100,6 +101,7 @@ async function handleApi(request, response, pathname) {
       name,
       genre,
       kind,
+      featured,
       year: String(year),
       score: `${score}%`,
       age,
@@ -109,12 +111,13 @@ async function handleApi(request, response, pathname) {
       videoUrl,
       description,
     };
+    if (featured) movies = movies.map((item) => ({ ...item, featured: false }));
     movies.unshift(movie);
     await saveMovies();
     return sendJson(response, 201, { movie });
   }
 
-  if (request.method === 'POST' && (pathname === '/api/register' || pathname === '/api/login')) {
+  if (request.method === 'POST' && pathname === '/api/login') {
     const body = await readBody(request);
     const email = typeof body.email === 'string' ? body.email.trim().toLowerCase() : '';
     const password = typeof body.password === 'string' ? body.password : '';
@@ -122,21 +125,10 @@ async function handleApi(request, response, pathname) {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254) return sendJson(response, 400, { error: 'Introduce un correo electrónico válido.' });
     if (password.length < 8 || password.length > 128) return sendJson(response, 400, { error: 'La contraseña debe tener entre 8 y 128 caracteres.' });
 
-    let user = users[email];
-    if (pathname === '/api/register') {
-      const name = typeof body.name === 'string' ? body.name.trim() : '';
-      if (name.length < 2 || name.length > 40) return sendJson(response, 400, { error: 'El nombre debe tener entre 2 y 40 caracteres.' });
-      if (user) return sendJson(response, 409, { error: 'Ya existe una cuenta con ese correo.' });
-      const salt = randomBytes(16).toString('hex');
-      const passwordHash = (await scrypt(password, salt, 64)).toString('hex');
-      user = { id: randomBytes(12).toString('hex'), name, email, salt, passwordHash, role: 'user', watchlist: [] };
-      users[email] = user;
-      await saveUsers();
-    } else {
-      if (!user) return sendJson(response, 401, { error: 'Correo o contraseña incorrectos.' });
-      const candidate = await scrypt(password, user.salt, 64);
-      if (!timingSafeEqual(candidate, Buffer.from(user.passwordHash, 'hex'))) return sendJson(response, 401, { error: 'Correo o contraseña incorrectos.' });
-    }
+    const user = users[email];
+    if (!user) return sendJson(response, 401, { error: 'Correo o contraseña incorrectos.' });
+    const candidate = await scrypt(password, user.salt, 64);
+    if (!timingSafeEqual(candidate, Buffer.from(user.passwordHash, 'hex'))) return sendJson(response, 401, { error: 'Correo o contraseña incorrectos.' });
 
     const token = randomBytes(32).toString('hex');
     sessions.set(token, email);

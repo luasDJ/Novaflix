@@ -16,7 +16,6 @@ const movieForm = document.querySelector('#movie-form');
 const saved = new Set(JSON.parse(localStorage.getItem('novaflix-list') || '[]'));
 let activeCategory = 'Todo';
 let currentUser = null;
-let authMode = 'login';
 
 async function api(path, options = {}) {
   let response;
@@ -66,7 +65,7 @@ function renderCatalog() {
 }
 
 function renderFeaturedTitle() {
-  const title = titles[0];
+  const title = titles.find((item) => item.featured) || titles[0];
   const hero = document.querySelector('.hero');
   hero.hidden = !title;
   if (!title) return;
@@ -153,10 +152,9 @@ function showAuthError(message = '') {
 
 function renderAccount() {
   const isLoggedIn = Boolean(currentUser);
-  document.querySelector('#account-form').hidden = isLoggedIn || isGitHubPages;
+  document.querySelector('#account-form').hidden = isLoggedIn;
   document.querySelector('#account-profile').hidden = !isLoggedIn || isGitHubPages;
   document.querySelector('#pages-account-note').hidden = !isGitHubPages;
-  document.querySelector('.account-intro').hidden = isGitHubPages;
   document.querySelector('#account-name').textContent = currentUser?.name || '';
   document.querySelector('#account-email').textContent = currentUser?.email || '';
   document.querySelector('#account-role').textContent = currentUser?.role === 'admin' ? 'Administrador' : 'Cuenta estándar';
@@ -165,17 +163,6 @@ function renderAccount() {
   avatar.textContent = isLoggedIn ? currentUser.name.charAt(0).toLocaleUpperCase('es') : 'Entrar';
   avatar.classList.toggle('is-logged-in', isLoggedIn);
   avatar.setAttribute('aria-label', isLoggedIn ? `Cuenta de ${currentUser.name}` : 'Abrir cuenta');
-}
-
-function setAuthMode(mode) {
-  authMode = mode;
-  const registering = mode === 'register';
-  document.querySelector('.name-field').hidden = !registering;
-  document.querySelector('.name-field input').required = registering;
-  document.querySelector('[name="password"]').autocomplete = registering ? 'new-password' : 'current-password';
-  document.querySelector('.auth-submit').textContent = registering ? 'Crear cuenta' : 'Iniciar sesión';
-  document.querySelectorAll('.auth-tab').forEach((tab) => tab.classList.toggle('is-active', tab.dataset.authMode === mode));
-  showAuthError();
 }
 
 async function loadAccount() {
@@ -268,6 +255,7 @@ movieForm.addEventListener('submit', async (event) => {
   errorElement.hidden = true;
   const data = new FormData(movieForm);
   const payload = Object.fromEntries(data.entries());
+  payload.featured = data.has('featured');
   try {
     const result = await api('/api/movies', { method: 'POST', body: JSON.stringify(payload) });
     titles.unshift(result.movie);
@@ -279,15 +267,17 @@ movieForm.addEventListener('submit', async (event) => {
     errorElement.hidden = false;
   }
 });
-document.querySelectorAll('.auth-tab').forEach((tab) => tab.addEventListener('click', () => setAuthMode(tab.dataset.authMode)));
 accountForm.addEventListener('submit', async (event) => {
   event.preventDefault();
   showAuthError();
+  if (isGitHubPages) {
+    showAuthError('El inicio de sesión necesita un servicio de autenticación conectado.');
+    return;
+  }
   const formData = new FormData(accountForm);
   const payload = { email: formData.get('email'), password: formData.get('password') };
-  if (authMode === 'register') payload.name = formData.get('name');
   try {
-    const result = await api(`/api/${authMode}`, { method: 'POST', body: JSON.stringify(payload) });
+    const result = await api('/api/login', { method: 'POST', body: JSON.stringify(payload) });
     currentUser = result.user;
     saved.clear();
     result.watchlist.forEach((id) => saved.add(id));
@@ -325,6 +315,5 @@ document.querySelector('.sound-toggle').addEventListener('click', (event) => {
 });
 
 renderCatalog();
-setAuthMode('login');
 loadAccount();
 loadMovies();

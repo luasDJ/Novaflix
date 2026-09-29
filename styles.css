@@ -139,6 +139,8 @@ a { color: inherit; text-decoration: none; }
 .account-mark { width: 29px; height: 34px; margin-bottom: 15px; clip-path: polygon(0 0,100% 0,100% 100%,50% 78%,0 100%); }
 .account-panel h2 { margin: 0; font: 650 23px 'Manrope',sans-serif; }
 .account-intro { margin: 7px 0 20px; color: #aeb1ae; font-size: 12px; line-height: 1.6; }
+.account-contact { margin: 16px 0 0; color: #aeb1ae; font-size: 11px; line-height: 1.6; }
+.account-contact a { color: var(--green); text-decoration: underline; text-underline-offset: 3px; }
 .auth-tabs { display: grid; grid-template-columns: 1fr 1fr; margin-bottom: 18px; border-bottom: 1px solid #3d3f40; }
 .auth-tab { padding: 10px 3px; border: 0; border-bottom: 2px solid transparent; background: transparent; color: #aeb1ae; font-size: 11px; cursor: pointer; }
 .auth-tab.is-active { border-bottom-color: var(--green); color: var(--paper); }
@@ -168,6 +170,8 @@ a { color: inherit; text-decoration: none; }
 .auth-field textarea { min-height: 90px; padding: 10px; resize: vertical; line-height: 1.5; }
 .auth-field select:focus, .auth-field textarea:focus { border-color: var(--green); }
 .admin-error { margin: 8px 0; color: #ff9c8f; font-size: 11px; line-height: 1.5; }
+.featured-toggle { display: flex; align-items: center; gap: 9px; width: fit-content; margin: 12px 0; color: var(--paper); font-size: 11px; cursor: pointer; }
+.featured-toggle input { width: 16px; height: 16px; accent-color: var(--green); }
 .admin-submit { justify-content: center; margin-top: 10px; }
 
 @keyframes rise-in { from { opacity: 0; transform: translateY(13px); } to { opacity: 1; transform: translateY(0); } }

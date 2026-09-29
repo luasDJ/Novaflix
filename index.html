@@ -88,21 +88,20 @@
       <div class="account-panel">
         <span class="account-mark">N</span>
         <h2 id="account-title">Tu espacio Nova</h2>
-        <p class="account-intro">Entra para tener tus historias en un mismo lugar.</p>
+        <p class="account-intro">Inicia sesión para continuar.</p>
         <form id="account-form">
-          <div class="auth-tabs"><button type="button" class="auth-tab is-active" data-auth-mode="login">Iniciar sesión</button><button type="button" class="auth-tab" data-auth-mode="register">Crear cuenta</button></div>
-          <label class="auth-field name-field" hidden>Nombre<input name="name" autocomplete="name" maxlength="40"></label>
           <label class="auth-field">Correo electrónico<input name="email" type="email" autocomplete="email" required maxlength="254"></label>
           <label class="auth-field">Contraseña<input name="password" type="password" autocomplete="current-password" required minlength="8" maxlength="128"></label>
           <p class="auth-error" id="auth-error" role="alert" hidden></p>
           <button class="button button-light auth-submit" type="submit">Iniciar sesión</button>
         </form>
+        <p class="account-contact">¿Aún no tienes cuenta? <a href="https://github.com/luasDJ/Novaflix/issues/new" target="_blank" rel="noopener noreferrer">Contacta con nosotros</a>.</p>
         <div class="account-profile" id="account-profile" hidden>
           <p>Sesión iniciada como</p><strong id="account-name"></strong><span id="account-email"></span><span class="account-role" id="account-role"></span>
           <button class="button button-glass admin-open" id="admin-open" hidden>Gestionar películas</button>
           <button class="button button-glass logout-button" id="logout-button">Cerrar sesión</button>
         </div>
-        <p class="pages-account-note" id="pages-account-note" hidden>GitHub Pages no administra cuentas. Para activar el inicio de sesión hay que conectar un servicio de autenticación.</p>
+        <p class="pages-account-note" id="pages-account-note" hidden>El inicio de sesión necesita un backend de autenticación; GitHub Pages solo publica archivos estáticos.</p>
       </div>
     </dialog>
 
@@ -126,6 +125,7 @@
           </div>
           <label class="auth-field">URL HTTPS del cartel *<input name="imageUrl" type="url" required placeholder="https://..."></label>
           <label class="auth-field">URL HTTPS del vídeo<input name="videoUrl" type="url" placeholder="https://... (opcional)"></label>
+          <label class="featured-toggle"><input name="featured" type="checkbox"><span>Destacar en portada</span></label>
           <label class="auth-field">Sinopsis *<textarea name="description" required maxlength="1000" rows="4"></textarea></label>
           <p class="admin-error" id="admin-error" role="alert" hidden></p>
           <button class="button button-light admin-submit" type="submit">Añadir al catálogo</button>
